@@ -69,9 +69,13 @@ export default () => {
           setCity(city);
         }
       });
-  }, [data]);
+  }, [data, info]);
   if (!city) {
-    return <Spinner />;
+    return (
+      <div style={{ widht: "100%", height: "500px" }}>
+        please allow your location access....
+      </div>
+    );
   }
   return (
     <div style={{ textAlign: "center", marginTop: "10px" }}>
