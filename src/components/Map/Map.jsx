@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { DeleteIcon } from "@chakra-ui/icons";
+import "leaflet/dist/images/marker-shadow.png";
 
 const Map = ({ editableArray, staticArrays, currentChanges, citiesInfo }) => {
   const mapRef = useRef(null);
@@ -9,7 +10,6 @@ const Map = ({ editableArray, staticArrays, currentChanges, citiesInfo }) => {
   const removeRef = useRef();
   const [clickedPoints, setClickedPoints] = useState(editableArray.locations);
 
-  
   useEffect(() => {
     if (mapRef.current && editableArray.locations.length > 0) {
       mapRef.current.setView([
