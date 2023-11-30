@@ -3,6 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { DeleteIcon } from "@chakra-ui/icons";
 import "leaflet/dist/images/marker-shadow.png";
+L.Icon.Default.imagePath = "/";
 
 const Map = ({ editableArray, staticArrays, currentChanges, citiesInfo }) => {
   const mapRef = useRef(null);
