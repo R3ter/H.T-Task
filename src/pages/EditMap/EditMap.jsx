@@ -4,6 +4,7 @@ import { Box, Button, Text } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import getUniqueRandomColor from "./../../functions/getColor";
 import { useToast } from "@chakra-ui/react";
+import axios from "axios";
 import MapTools from "../../components/MapTools/MapTools";
 import AllFields from "../../components/MapTools/inputFields/AllFields";
 import Color from "../../components/MapTools/inputFields/Color";
@@ -11,34 +12,22 @@ import "./style.css";
 
 export default () => {
   const toast = useToast();
-  const [citiesInfo, setCitiesInfo] = useState([
-    {
-      available: true,
-      name: "jerusalem",
-      color: "#561fbd53",
-      cost: 1010,
-      locations: [
-        { lat: 51.53256182151333, lng: -0.10625839233398439 },
-        { lat: 51.522309273255594, lng: -0.06746292114257814 },
-        { lat: 51.49292721420453, lng: -0.05630493164062501 },
-        { lat: 51.51707531179727, lng: -0.13904571533203128 },
-      ],
-    },
-    {
-      cost: 550,
-      name: "shufat",
-      color: "#c5792152",
-      locations: [
-        { lat: 52.13256182151331, lng: -0.1002585920339841 },
-        { lat: 52.12230927325551, lng: -0.0604625210425781 },
-        { lat: 52.19292721420455, lng: -0.05030453104062505 },
-        { lat: 52.11707531179727, lng: -0.13004551503203128 },
-      ],
-    },
-  ]);
-  const [selectedCity, setCity] = useState(0);
-  const currentChanges = useRef(citiesInfo[selectedCity]);
 
+  const [citiesInfo, setCitiesInfo] = useState();
+  const currentChanges = useRef();
+  useEffect(() => {
+    fetch("https://h-t-apps-backend-task.onrender.com/").then(
+      async (response) => {
+        const data = await response.json();
+        setCitiesInfo(data.data);
+        currentChanges.current = data.data[selectedCity];
+      }
+    );
+  }, []);
+  const [selectedCity, setCity] = useState(0);
+  if (!citiesInfo) {
+    return <div></div>;
+  }
   return (
     <div className="EditMapPage">
       {citiesInfo.length !== 0 && (
@@ -108,8 +97,8 @@ export default () => {
                 setCity(0);
               }}
               onSave={() => {
-                setCitiesInfo((old) =>
-                  citiesInfo.map((city, i) => {
+                setCitiesInfo((old) => {
+                  const newArr = citiesInfo.map((city, i) => {
                     if (i === selectedCity) {
                       return {
                         ...city,
@@ -118,8 +107,23 @@ export default () => {
                       };
                     }
                     return city;
-                  })
-                );
+                  });
+                  axios
+                    .post("https://h-t-apps-backend-task.onrender.com/", {
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      data: newArr,
+                    })
+                    .then(function (response) {
+                      console.log(response);
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                  return newArr;
+                });
                 toast({
                   title: "Data updated.",
                   description:
