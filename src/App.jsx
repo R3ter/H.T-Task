@@ -5,7 +5,7 @@ import EditMap from "./pages/EditMap/EditMap";
 
 export default function App() {
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider>
       <EditMap />
     </ChakraProvider>
   );
