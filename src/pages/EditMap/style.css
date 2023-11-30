@@ -4,3 +4,26 @@
   display: flex;
   justify-content: center;
 }
+
+.editMapContentContainer {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 80vh;
+  width: 100%;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 2%;
+  margin: 2%;
+}
+
+@media (max-width: 600px) {
+  .EditMapPage {
+    font-size: 10px;
+  }
+  .editMapContentContainer {
+    height: 90vh;
+  }
+}

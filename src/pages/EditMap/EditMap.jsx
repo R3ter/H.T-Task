@@ -1,7 +1,6 @@
-// EditMapPage component
 import { useEffect, useRef, useState } from "react";
 import Map from "../../components/Map/Map";
-import { Box, Button, ButtonGroup, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import getUniqueRandomColor from "./../../functions/getColor";
 import { useToast } from "@chakra-ui/react";
@@ -37,13 +36,12 @@ export default () => {
       ],
     },
   ]);
-
   const [selectedCity, setCity] = useState(0);
   const currentChanges = useRef(citiesInfo[selectedCity]);
 
   return (
     <div className="EditMapPage">
-      {citiesInfo.length != 0 && (
+      {citiesInfo.length !== 0 && (
         <Map
           citiesInfo={citiesInfo}
           currentChanges={currentChanges}
@@ -52,21 +50,9 @@ export default () => {
         />
       )}
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          overflowY: "scroll",
-          height: "100vh",
-          width: "100%",
-        }}
-      >
-        <Box
-          height={"50px"}
-          style={{ display: "flex", gap: 20, margin: "20px" }}
-        >
+      <div className="editMapContentContainer">
+        <Box className="buttonContainer">
           <Button
-            width={"100%"}
             colorScheme="green"
             onClick={() => {
               setCitiesInfo([
@@ -83,7 +69,7 @@ export default () => {
             }}
           >
             <AddIcon />
-            <Text>Add Regin</Text>
+            <Text>Add Region</Text>
           </Button>
         </Box>
         <MapTools
