@@ -4,7 +4,6 @@ import { Box, Button, Text } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import getUniqueRandomColor from "./../../functions/getColor";
 import { useToast } from "@chakra-ui/react";
-import axios from "axios";
 import MapTools from "../../components/MapTools/MapTools";
 import AllFields from "../../components/MapTools/inputFields/AllFields";
 import Color from "../../components/MapTools/inputFields/Color";
@@ -19,8 +18,8 @@ export default () => {
     fetch("https://h-t-apps-backend-task.onrender.com/").then(
       async (response) => {
         const data = await response.json();
-        setCitiesInfo(data.data);
-        currentChanges.current = data.data[selectedCity];
+        setCitiesInfo(data);
+        currentChanges.current = data[selectedCity];
       }
     );
   }, []);
@@ -109,14 +108,15 @@ export default () => {
                     }
                     return city;
                   });
-                  axios
-                    .post("https://h-t-apps-backend-task.onrender.com/", {
-                      headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                      },
-                      data: newArr,
-                    })
+                  console.log(newArr);
+                  fetch("https://h-t-apps-backend-task.onrender.com/", {
+                    method: "post",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                    },
+                    data: newArr,
+                  })
                     .then(function (response) {
                       console.log(response);
                     })
