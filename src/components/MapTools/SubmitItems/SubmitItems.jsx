@@ -45,7 +45,7 @@ export default ({ onSave, onCancel, onDelete }) => {
                   </Button>
                 </PopoverTrigger>
                 <Portal>
-                  <PopoverContent width={"100%"}>
+                  <PopoverContent float={"right"} width={"70%"}>
                     <PopoverArrow />
                     <PopoverHeader>
                       Are you sure you want to delete it?
