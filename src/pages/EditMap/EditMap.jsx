@@ -19,8 +19,8 @@ export default () => {
     fetch("https://h-t-apps-backend-task.onrender.com/").then(
       async (response) => {
         const data = await response.json();
-        setCitiesInfo(data.data);
-        currentChanges.current = data.data[selectedCity];
+        setCitiesInfo(data);
+        currentChanges.current = data[selectedCity];
       }
     );
   }, []);
