@@ -87,7 +87,13 @@ export default () => {
   return (
     <div style={{ textAlign: "center", marginTop: "10px" }}>
       <Text>you exist in {city.name}</Text>
-      <Text>delivery costs {city.cost}</Text>
+      {!city.available ? (
+        <Text>
+          Your regin cant be reached at this moment please try again later
+        </Text>
+      ) : (
+        <Text>delivery costs {city.cost}</Text>
+      )}
     </div>
   );
 };
