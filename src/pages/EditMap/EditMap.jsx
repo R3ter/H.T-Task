@@ -4,7 +4,6 @@ import { Box, Button, Text } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import getUniqueRandomColor from "./../../functions/getColor";
 import { useToast } from "@chakra-ui/react";
-import axios from "axios";
 import MapTools from "../../components/MapTools/MapTools";
 import AllFields from "../../components/MapTools/inputFields/AllFields";
 import Color from "../../components/MapTools/inputFields/Color";
@@ -27,7 +26,7 @@ export default () => {
   console.log(citiesInfo);
   const [selectedCity, setCity] = useState(0);
   if (!citiesInfo) {
-    return <div></div>;
+    return <div>loading........</div>;
   }
   return (
     <div className="EditMapPage">
@@ -109,14 +108,15 @@ export default () => {
                     }
                     return city;
                   });
-                  axios
-                    .post("https://h-t-apps-backend-task.onrender.com/", {
-                      headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                      },
-                      data: newArr,
-                    })
+                  console.log(newArr);
+                  fetch("https://h-t-apps-backend-task.onrender.com/", {
+                    method: "post",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                    },
+                    data: newArr,
+                  })
                     .then(function (response) {
                       console.log(response);
                     })
