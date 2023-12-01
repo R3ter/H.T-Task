@@ -26,7 +26,7 @@ export default () => {
   console.log(citiesInfo);
   const [selectedCity, setCity] = useState(0);
   if (!citiesInfo) {
-    return <div></div>;
+    return <div>loading........</div>;
   }
   return (
     <div className="EditMapPage">
