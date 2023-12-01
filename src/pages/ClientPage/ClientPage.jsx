@@ -3,6 +3,7 @@ import { Spinner, Text } from "@chakra-ui/react";
 
 export default () => {
   const [city, setCity] = useState();
+  const [hasSearched, setSearched] = useState(false);
   const [data, setData] = useState();
   const [info, setInfo] = useState({ city: "", cost: 0, available: true });
 
@@ -15,6 +16,7 @@ export default () => {
           const { latitude, longitude } = position.coords;
           console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
           setInfo({ ...info, latitude, longitude });
+          setSearched(true);
         },
         (error) => {
           console.error(`Error getting location: ${error.message}`);
@@ -29,7 +31,8 @@ export default () => {
     fetch("https://h-t-apps-backend-task.onrender.com/").then(
       async (response) => {
         const data = await response.json();
-        setData(data.data);
+        console.log(data);
+        setData(data);
       }
     );
   }, []);
@@ -59,7 +62,7 @@ export default () => {
   }
 
   useEffect(() => {
-    if (data)
+    if (data) {
       data.forEach((city) => {
         const isInside = isPointInsideRegion(
           { lat: info.latitude, lng: info.longitude },
@@ -69,7 +72,11 @@ export default () => {
           setCity(city);
         }
       });
+    }
   }, [data, info]);
+  if (!city && hasSearched) {
+    return <div>City was not found</div>;
+  }
   if (!city) {
     return (
       <div style={{ widht: "100%", height: "500px" }}>
