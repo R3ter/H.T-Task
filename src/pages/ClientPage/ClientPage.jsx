@@ -77,7 +77,12 @@ export default () => {
     }
   }, [data, info]);
   if (!city && hasSearched) {
-    return <div>City was not found</div>;
+    return (
+      <div>
+        The administration didn't to include your region as a designated
+        delivery area.
+      </div>
+    );
   }
   return (
     <div style={{ textAlign: "center", marginTop: "10px" }}>

@@ -115,7 +115,7 @@ export default () => {
                       "Content-Type": "application/json",
                       Accept: "application/json",
                     },
-                    data: newArr,
+                    body: JSON.stringify({ data: newArr }),
                   })
                     .then(function (response) {
                       console.log(response);
