@@ -92,7 +92,16 @@ export default () => {
               }}
               onDelete={() => {
                 setCitiesInfo((e) => {
-                  return e.filter((e, i) => i != selectedCity);
+                  const newArray = e.filter((e, i) => i != selectedCity);
+                  fetch("https://h-t-apps-backend-task.onrender.com/", {
+                    method: "post",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                    },
+                    data: newArray,
+                  });
+                  return newArray;
                 });
                 setCity(0);
               }}
