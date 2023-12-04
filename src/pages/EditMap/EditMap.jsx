@@ -15,13 +15,13 @@ export default () => {
   const [citiesInfo, setCitiesInfo] = useState();
   const currentChanges = useRef();
   useEffect(() => {
-    fetch("https://h-t-apps-backend-task.onrender.com/").then(
-      async (response) => {
-        const data = await response.json();
-        setCitiesInfo(data);
-        currentChanges.current = data[selectedCity];
-      }
-    );
+    fetch("https://h-t-apps-backend-task.onrender.com/", {
+      cache: "no-cache",
+    }).then(async (response) => {
+      const data = await response.json();
+      setCitiesInfo(data);
+      currentChanges.current = data[selectedCity];
+    });
   }, []);
   console.log(citiesInfo);
   const [selectedCity, setCity] = useState(0);
@@ -119,12 +119,13 @@ export default () => {
                   });
                   console.log(newArr);
                   fetch("https://h-t-apps-backend-task.onrender.com/", {
+                    cache: "no-cache",
                     method: "post",
                     headers: {
                       "Content-Type": "application/json",
                       Accept: "application/json",
                     },
-                    data: newArr,
+                    body: JSON.stringify({ data: newArr }),
                   })
                     .then(function (response) {
                       console.log(response);
